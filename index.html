@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Locked Message</title>
+  <link rel="stylesheet" href="style2.css" />
+</head>
+<body>
+  <!-- PIN Lock Screen -->
+  <div id="lock-screen" class="lock-container">
+    <h2>Enter PIN to unlock 💖</h2>
+    <input type="password" id="pin-input" placeholder="Enter PIN" maxlength="4" />
+    <button onclick="checkPIN()">Unlock</button>
+    <p id="error-message"></p>
+  </div>
+
+  <!-- Hidden Message Section -->
+  <div id="heart-message" class="heart-container hidden">
+    <audio id="bg-music" src="music.mp3" autoplay loop></audio>
+    <div class="heart">❤️</div>
+    <h1>Hey moti 💕</h1>
+    <h2>A message for u</h2>
+    <a href="#" class="button" onclick="transitionToPage('index2.html')">Open</a>
+    <div id="floating-hearts"></div>
+  </div>
+
+  <script>
+    function checkPIN() {
+      const correctPIN = "1807";
+      const input = document.getElementById("pin-input").value;
+      const errorMsg = document.getElementById("error-message");
+
+      if (input === correctPIN) {
+        document.getElementById("lock-screen").style.display = "none";
+        const message = document.getElementById("heart-message");
+        message.classList.remove("hidden");
+        message.classList.add("fade-in");
+        document.getElementById("bg-music").play();
+      } else {
+        errorMsg.textContent = "Wrong PIN. Try again!";
+        errorMsg.style.color = "red";
+      }
+    }
+
+    function transitionToPage(url) {
+      const hearts = document.getElementById("floating-hearts");
+      for (let i = 0; i < 10; i++) {
+        const heart = document.createElement("div");
+        heart.className = "floating-heart";
+        heart.style.left = Math.random() * 100 + "vw";
+        hearts.appendChild(heart);
+      }
+      setTimeout(() => window.location.href = url, 1500);
+    }
+  </script>
+</body>
+</html>
